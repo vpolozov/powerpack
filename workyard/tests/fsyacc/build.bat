@@ -1,14 +1,13 @@
 setlocal
 if EXIST build.ok DEL /f /q build.ok
 
-call %~d0%~p0..\..\config.bat
+call %~d0%~p0scripts\config.bat
 @if ERRORLEVEL 1 goto Error
 
 if NOT "%FSC:NOTAVAIL=X%" == "%FSC%" ( 
   REM Skipping test for FSI.EXE
   goto Skip
 )
-
 
 REM UNICODE test1-unicode
 
@@ -118,6 +117,6 @@ exit /b 0
 
 
 :Error
-call %SCRIPT_ROOT%\ChompErr.bat %ERRORLEVEL% %~f0
+call scripts\ChompErr.bat %ERRORLEVEL% %~f0
 endlocal
 exit /b %ERRORLEVEL%

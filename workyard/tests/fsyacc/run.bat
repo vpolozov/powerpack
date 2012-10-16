@@ -6,7 +6,7 @@ dir build.ok > NUL ) || (
   goto :ERROR
 )
 
-call %~d0%~p0..\..\config.bat
+call %~d0%~p0scripts\config.bat
 if ERRORLEVEL 1 goto Error
 
 
