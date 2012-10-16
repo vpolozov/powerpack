@@ -16,34 +16,34 @@ REM Regression test for FSB 1885
 "%FSLEX%" repro1885.fsl
 @if ERRORLEVEL 1 goto Error
 
-"%FSLEX%" --light-off -o test1lex.fs test1lex.mll
+"%FSLEX%" --light-off -o test1lex.fs test1lex.fsl
 @if ERRORLEVEL 1 goto Error
 
-"%FSYACC%" --light-off --module TestParser -o test1.fs test1.mly
+"%FSYACC%" --light-off --module TestParser -o test1.fs test1.fsy
 @if ERRORLEVEL 1 goto Error
 
-"%FSC%" %fsc_flags% -g -o:test1%ILX_SUFFIX%.exe tree.ml test1.fsi test1.fs test1lex.fs main.ml
+"%FSC%" %fsc_flags% -g -o:test1%ILX_SUFFIX%.exe tree.fs test1.fsi test1.fs test1lex.fs main.fs
 @if ERRORLEVEL 1 goto Error
 
 "%PEVERIFY%" test1%ILX_SUFFIX%.exe 
 @if ERRORLEVEL 1 goto Error
 
-"%FSYACC%" --light-off --module TestParser -o test2.fs test2.mly
+"%FSYACC%" --light-off --module TestParser -o test2.fs test2.fsy
 @if ERRORLEVEL 1 goto Error
 
-"%FSC%" %fsc_flags% -g -o:test2%ILX_SUFFIX%.exe tree.ml test2.fsi test2.fs test1lex.fs main.ml
+"%FSC%" %fsc_flags% -g -o:test2%ILX_SUFFIX%.exe tree.fs test2.fsi test2.fs test1lex.fs main.fs
 @if ERRORLEVEL 1 goto Error
 
 "%PEVERIFY%" test2%ILX_SUFFIX%.exe
 @if ERRORLEVEL 1 goto Error
 
-"%FSLEX%" --light-off --unicode -o test1-unicode-lex.fs test1-unicode-lex.mll
+"%FSLEX%" --light-off --unicode -o test1-unicode-lex.fs test1-unicode-lex.fsl
 @if ERRORLEVEL 1 goto Error
 
-"%FSYACC%" --light-off --module TestParser -o test1-unicode.fs test1-unicode.mly
+"%FSYACC%" --light-off --module TestParser -o test1-unicode.fs test1-unicode.fsy
 @if ERRORLEVEL 1 goto Error
 
-"%FSC%" %fsc_flags% -g -o:test1-unicode%ILX_SUFFIX%.exe tree.ml test1-unicode.fsi test1-unicode.fs test1-unicode-lex.fs main-unicode.ml
+"%FSC%" %fsc_flags% -g -o:test1-unicode%ILX_SUFFIX%.exe tree.fs test1-unicode.fsi test1-unicode.fs test1-unicode-lex.fs main-unicode.fs
 @if ERRORLEVEL 1 goto Error
 
 "%PEVERIFY%" test1-unicode%ILX_SUFFIX%.exe 
@@ -51,52 +51,52 @@ REM Regression test for FSB 1885
 
 
 
-"%FSLEX%" -o test1lex.ml test1lex.mll
+"%FSLEX%" -o test1lex.fs test1lex.fsl
 @if ERRORLEVEL 1 goto Error
 
-"%FSYACC%" --module TestParser -o test1.ml test1.mly
+"%FSYACC%" --module TestParser -o test1.fs test1.fsy
 @if ERRORLEVEL 1 goto Error
 
-"%FSC%" %fsc_flags% -g -o:test1%ILX_SUFFIX%.exe tree.ml test1.mli test1.ml test1lex.ml main.ml
+"%FSC%" %fsc_flags% -g -o:test1%ILX_SUFFIX%.exe tree.fs test1.fsi test1.fs test1lex.fs main.fs
 @if ERRORLEVEL 1 goto Error
 
 "%PEVERIFY%" test1%ILX_SUFFIX%.exe 
 @if ERRORLEVEL 1 goto Error
 
-"%FSYACC%" --module TestParser -o test1compat.ml --ml-compatibility test1.mly
+"%FSYACC%" --module TestParser -o test1compat.fs --fs-compatibility test1.fsy
 @if ERRORLEVEL 1 goto Error
 
-"%FSC%" %fsc_flags% -g -o:test1compat%ILX_SUFFIX%.exe tree.ml test1compat.mli test1compat.ml test1lex.ml main.ml
+"%FSC%" %fsc_flags% -g -o:test1compat%ILX_SUFFIX%.exe tree.fs test1compat.fsi test1compat.fs test1lex.fs main.fs
 @if ERRORLEVEL 1 goto Error
 
 "%PEVERIFY%" test1compat%ILX_SUFFIX%.exe
 @if ERRORLEVEL 1 goto Error
 
-"%FSYACC%" --module TestParser -o test2.ml test2.mly
+"%FSYACC%" --module TestParser -o test2.fs test2.fsy
 @if ERRORLEVEL 1 goto Error
 
-"%FSC%" %fsc_flags% -g -o:test2%ILX_SUFFIX%.exe tree.ml test2.mli test2.ml test1lex.ml main.ml
+"%FSC%" %fsc_flags% -g -o:test2%ILX_SUFFIX%.exe tree.fs test2.fsi test2.fs test1lex.fs main.fs
 @if ERRORLEVEL 1 goto Error
 
 "%PEVERIFY%" test2%ILX_SUFFIX%.exe
 @if ERRORLEVEL 1 goto Error
 
-"%FSYACC%" --module TestParser -o test2compat.ml --ml-compatibility test2.mly
+"%FSYACC%" --module TestParser -o test2compat.fs --fs-compatibility test2.fsy
 @if ERRORLEVEL 1 goto Error
 
-"%FSC%" %fsc_flags% -g -o:test2compat%ILX_SUFFIX%.exe tree.ml test2compat.mli test2compat.ml test1lex.ml main.ml
+"%FSC%" %fsc_flags% -g -o:test2compat%ILX_SUFFIX%.exe tree.fs test2compat.fsi test2compat.fs test1lex.fs main.fs
 @if ERRORLEVEL 1 goto Error
 
 "%PEVERIFY%" test2compat%ILX_SUFFIX%.exe
 @if ERRORLEVEL 1 goto Error
 
-"%FSLEX%" --unicode -o test1-unicode-lex.ml test1-unicode-lex.mll
+"%FSLEX%" --unicode -o test1-unicode-lex.fs test1-unicode-lex.fsl
 @if ERRORLEVEL 1 goto Error
 
-"%FSYACC%" --module TestParser -o test1-unicode.ml test1-unicode.mly
+"%FSYACC%" --module TestParser -o test1-unicode.fs test1-unicode.fsy
 @if ERRORLEVEL 1 goto Error
 
-"%FSC%" %fsc_flags% -g -o:test1-unicode%ILX_SUFFIX%.exe tree.ml test1-unicode.mli test1-unicode.ml test1-unicode-lex.ml main-unicode.ml
+"%FSC%" %fsc_flags% -g -o:test1-unicode%ILX_SUFFIX%.exe tree.fs test1-unicode.fsi test1-unicode.fs test1-unicode-lex.fs main-unicode.fs
 @if ERRORLEVEL 1 goto Error
 
 "%PEVERIFY%" test1-unicode%ILX_SUFFIX%.exe 
