@@ -9,6 +9,11 @@ if NOT "%FSC:NOTAVAIL=X%" == "%FSC%" (
   goto Skip
 )
 
+SET FSP_BASE=%~d0%~p0..\..\..\Debug\bin
+
+SET FSLEX=%FSP_BASE%"\fslex.exe"
+SET FSYACC=%FSP_BASE%"\fsyacc.exe"
+
 REM UNICODE test1-unicode
 
 REM Regression test for FSB 1885
