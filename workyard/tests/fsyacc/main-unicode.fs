@@ -1,18 +1,16 @@
-#light
-
 open Tree
 open System.IO
 let tokenize = ref false
 
 let usage =
-  [ "--tokens", Arg.Set tokenize, "tokenize the first file and exit" ]
+  [ ArgInfo("--tokens", ArgType.Set tokenize, "tokenize the first file and exit") ]
 
 let inputs = ref []
 
-let _ = Arg.parse usage (fun x -> inputs := !inputs @ [x]) "test... <filename> <filename>\nTests that all inputs give equivalent syntac trees"
+let _ = ArgParser.Parse(usage, (fun x -> inputs := !inputs @ [x]), "test... <filename> <filename>\nTests that all inputs give equivalent syntac trees")
 
 open Microsoft.FSharp.Text.Lexing
-open Microsoft.FSharp.Compatibility.OCaml.Lexing
+//open Microsoft.FSharp.Compatibility.OCaml.Lexing
 
 type UnicodeLexbuf =  LexBuffer<char>
   
@@ -58,7 +56,7 @@ let main() =
               | TestParser.EOF -> exit 0;
               | TestParser.IDENT s -> 
                   for c in s do
-                      Printf.eprintf "   ident char = %d\n" (Char.code c)
+                      Printf.eprintf "   ident char = %d\n" (int c)
                   done;
               | _ -> ()
                       
@@ -67,7 +65,7 @@ let main() =
           let tree = 
             try TestParser.start TestLexer.token lexbuf 
             with e -> 
-              Printf.eprintf "%s(%d,%d): error: %s\n" filename lexbuf.StartPos.Line lexbuf.StartPos.Column (match e with Failure s -> s | _ -> Printexc.to_string e);
+              Printf.eprintf "%s(%d,%d): error: %s\n" filename lexbuf.StartPos.Line lexbuf.StartPos.Column (match e with Failure s -> s | _ -> e.Message);
               exit 1 in 
           Printf.eprintf "parsed %s ok\n" filename;
           (filename,tree)) in 
